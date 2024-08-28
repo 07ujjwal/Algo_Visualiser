@@ -11,12 +11,12 @@ import TopBar from "./components/functional/TopBar/TopBar";
 import BubbleSort, {
   BubbleSortDesc,
   BubbleSortKey,
-} from "./algorithms/BubbleSort";
+} from "./algorithms/bubbleSort";
 import InsertionSort, {
   InsertionSortDesc,
   InsertionSortKey,
-} from "./algorithms/InsertionSort";
-import MergeSort, { MergeSortDesc, MergeSortKey } from "./algorithms/MergeSort";
+} from "./algorithms/insertionSort";
+import MergeSort, { MergeSortDesc, MergeSortKey } from "./algorithms/mergeSort";
 import QuickSort, { QuickSortDesc, QuickSortKey } from "./algorithms/QuickSort";
 import SelectionSort, {
   SelectionSortDesc,
