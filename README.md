@@ -14,4 +14,4 @@ To run this app locally:
 
 1. Clone this repository:
    ```bash
-   $ git clone YOUR_REPOSITORY_LINK
+   $ git clone https://github.com/07ujjwal/Algo_Visualiser
