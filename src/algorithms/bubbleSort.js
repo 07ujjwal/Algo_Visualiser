@@ -1,32 +1,73 @@
-export const bubbleSort = async (array, setArray, delay = 600) => {
-  const bars = document.querySelectorAll(".bar");
+import React from 'react';
+import {
+  swap,
+  newTrace,
+  addToTrace,
+  lastSorted,
+  createKey,
+} from './helpers';
 
-  for (let i = 0; i < bars.length; i += 1) {
-    for (let j = 0; j < bars.length - i - 1; j += 1) {
-      bars[j].style.backgroundColor = "darkblue";
-      bars[j + 1].style.backgroundColor = "darkblue";
+const BubbleSort = (nums) => {
+  const trace = newTrace(nums);
 
-      await new Promise((resolve) => setTimeout(resolve, delay));
+  nums.forEach((_, i) => {
+    nums.forEach((_, j) => {
+      if (j < nums.length - i - 1) {
+        // Visualize: Comparing nums[j] and nums[j + 1]
+        addToTrace(trace, nums, lastSorted(trace), [j, j + 1]);
 
-      const value1 = parseInt(bars[j].childNodes[0].innerHTML);
-      const value2 = parseInt(bars[j + 1].childNodes[0].innerHTML);
-
-      if (value1 > value2) {
-        [bars[j].style.height, bars[j + 1].style.height] = [
-          bars[j + 1].style.height,
-          bars[j].style.height,
-        ];
-        [bars[j].childNodes[0].innerHTML, bars[j + 1].childNodes[0].innerHTML] =
-          [
-            bars[j + 1].childNodes[0].innerHTML,
-            bars[j].childNodes[0].innerHTML,
-          ];
+        if (nums[j] > nums[j + 1]) {
+          swap(nums, j, j + 1);
+          // Visualize: Swap nums[j] and nums[j + 1]
+          addToTrace(trace, nums, lastSorted(trace), [], [j, j + 1]);
+        }
       }
+    });
 
-      bars[j].style.backgroundColor = "rgb(49, 226, 13)";
-      bars[j + 1].style.backgroundColor = "rgb(49, 226, 13)";
-    }
-  }
+    // Visualize: Mark the last sorted element
+    addToTrace(trace, nums, [
+      ...lastSorted(trace),
+      nums.length - 1 - i,
+    ]);
+  });
 
-  document.getElementById("ele").innerHTML = "<h3>Sorted!!!</h3>";
+  return trace;
 };
+
+export const BubbleSortKey = createKey('Comparing', 'Swapping');
+
+export const BubbleSortDesc = {
+  title: 'Bubble Sort',
+  description: (
+    <p>
+      <a
+        href="https://en.wikipedia.org/wiki/Bubble_sort"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Bubble Sort
+      </a>{' '}
+      is a simple sorting algorithm that repeatedly steps through the
+      list, compares adjacent elements and swaps them if they are in the
+      wrong order. The pass through the list is repeated until the list
+      is sorted. The algorithm, which is a comparison sort, is named for
+      the way smaller or larger elements "bubble" to the top of the
+      list. Although the algorithm is simple, it is too slow and
+      impractical for most problems.
+    </p>
+  ),
+  worstCase: (
+    <span>
+      O(n<sup>2</sup>)
+    </span>
+  ),
+  avgCase: (
+    <span>
+      O(n<sup>2</sup>)
+    </span>
+  ),
+  bestCase: <span>O(n)</span>,
+  space: <span>O(1)</span>,
+};
+
+export default BubbleSort;
